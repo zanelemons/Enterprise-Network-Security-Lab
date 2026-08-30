@@ -44,3 +44,24 @@ The project demonstrates how **VLAN segmentation, DHCP, inter-VLAN routing, and 
 * **802.1Q / Router-on-a-Stick** — Inter-VLAN routing
 * **Extended ACLs** — Traffic filtering and access control
 * **ICMP** — Connectivity and security testing
+
+* ## Network Architecture
+
+The network was designed using a segmented enterprise architecture consisting of one router, one managed switch, employee workstations, a server, and a guest workstation.
+
+The network is divided into three primary VLANs:
+
+| VLAN | Name      | Network         | Purpose                     |
+| ---- | --------- | --------------- | --------------------------- |
+| 10   | EMPLOYEES | 192.168.10.0/24 | Internal employee devices   |
+| 20   | SERVERS   | 192.168.20.0/24 | Enterprise server resources |
+| 30   | GUEST     | 192.168.30.0/24 | Guest and untrusted devices |
+
+The router provides the default gateway for each VLAN and handles inter-VLAN routing through a router-on-a-stick configuration. The switch connects the endpoint devices to their respective VLANs while the router provides controlled communication between network segments.
+
+### Topology
+
+The completed topology is shown below.
+
+![Enterprise Network Topology](screenshots/01-network-topology.png)
+
