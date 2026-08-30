@@ -45,7 +45,7 @@ The project demonstrates how **VLAN segmentation, DHCP, inter-VLAN routing, and 
 * **Extended ACLs** — Traffic filtering and access control
 * **ICMP** — Connectivity and security testing
 
-* ## Network Architecture
+## Network Architecture
 
 The network was designed using a segmented enterprise architecture consisting of one router, one managed switch, employee workstations, a server, and a guest workstation.
 
