@@ -131,4 +131,26 @@ The following screenshot shows the DHCP configuration used to provide automatic 
 
 ![DHCP Configuration](screenshots/04-dhcp-configuration.png)
 
+## Inter-VLAN Routing
+
+Because each VLAN uses a separate IP subnet, communication between VLANs requires a Layer 3 routing device. The router was configured using a **router-on-a-stick** design, allowing a single physical router interface to provide connectivity for multiple VLANs.
+
+The switch-to-router connection uses an 802.1Q trunk to carry traffic for VLANs 10, 20, and 30. The router then uses separate subinterfaces to act as the default gateway for each VLAN.
+
+| Interface             | VLAN | IP Address   | Role             |
+| --------------------- | ---: | ------------ | ---------------- |
+| GigabitEthernet0/1.10 |   10 | 192.168.10.1 | Employee gateway |
+| GigabitEthernet0/1.20 |   20 | 192.168.20.1 | Server gateway   |
+| GigabitEthernet0/1.30 |   30 | 192.168.30.1 | Guest gateway    |
+
+The subinterfaces allow the router to identify the VLAN associated with each packet and route traffic between the corresponding IP networks.
+
+### Routing Verification
+
+The router's interface configuration was verified using `show ip interface brief`. The VLAN subinterfaces were operational and displayed the expected gateway addresses.
+
+![Inter-VLAN Routing Configuration](screenshots/03-inter-vlan-routing.png)
+
+Inter-VLAN routing provides the connectivity required for legitimate communication while also providing the point where security policies can be enforced. The ACL described in the following section uses this routed traffic to restrict communication between specific VLANs.
+
 
