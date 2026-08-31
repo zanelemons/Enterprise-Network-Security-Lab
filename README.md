@@ -4,9 +4,9 @@ A segmented enterprise network designed and implemented in Cisco Packet Tracer u
 
 ## Objective
 
-The objective of this project was to design and implement a small enterprise network that provides reliable connectivity and network segmentation while restricting unauthorized communication between different areas of the network.
+The objective of this project was to design and implement a small enterprise network that provides reliable connectivity and network segmentation, while also restricting illicit communication between different areas of the network.
 
-The network separates **Employees, Servers, and Guests** into dedicated VLANs and uses router-on-a-stick inter-VLAN routing to provide controlled communication between these networks. An extended Access Control List (ACL) was then implemented to enforce security policies and prevent unauthorized access.
+The network separates **Employees, Servers, and Guests,** into dedicated VLANs and uses router-on-a-stick inter-VLAN routing to provide controlled communication between these networks. An extended Access Control List (ACL) was also implemented to enforce security policies and prevent unauthorized access.
 
 The completed environment was tested to verify that:
 
@@ -16,7 +16,7 @@ The completed environment was tested to verify that:
 * Guest devices cannot access the Server network.
 * Authorized traffic continues to function normally.
 
-The project demonstrates how **VLAN segmentation, DHCP, inter-VLAN routing, and ACLs** can be combined to create a more controlled and secure enterprise network environment.
+The project demonstrates how **VLAN segmentation, DHCP, inter-VLAN routing, and ACLs,** can be combined to create a more controlled and secure enterprise network environment.
 
 ## Skills Learned
 
@@ -27,10 +27,8 @@ The project demonstrates how **VLAN segmentation, DHCP, inter-VLAN routing, and 
 * Router-on-a-stick inter-VLAN routing
 * Cisco IOS configuration and verification
 * Extended Access Control List (ACL) configuration
-* Network security policy implementation
 * Traffic filtering and network isolation
 * ICMP connectivity testing
-* Cisco Packet Tracer Simulation Mode
 * Network troubleshooting and security-policy validation
 * Interpreting ACL match counters and packet behavior
 * Network documentation and security evidence collection
@@ -47,7 +45,7 @@ The project demonstrates how **VLAN segmentation, DHCP, inter-VLAN routing, and 
 
 ## Network Architecture
 
-The network was designed using a segmented enterprise architecture consisting of one router, one managed switch, employee workstations, a server, and a guest workstation.
+The network was designed using a segmented enterprise architecture consisting of one router, one managed switch, employee computers, a server, and a guest computer.
 
 The network is divided into three primary VLANs:
 
@@ -57,7 +55,7 @@ The network is divided into three primary VLANs:
 |   20 | SERVERS   | 192.168.20.0/24 | Enterprise server resources |
 |   30 | GUEST     | 192.168.30.0/24 | Guest and untrusted devices |
 
-The router provides the default gateway for each VLAN and handles inter-VLAN routing through a router-on-a-stick configuration. The switch connects endpoint devices to their respective VLANs, while the router provides the Layer 3 connectivity and security enforcement point between network segments.
+The router provides the default gateway for each VLAN and handles inter-VLAN routing through a router-on-a-stick configuration. The switch connects endpoint devices to their respective VLANs, while the router provides Layer 3 connectivity and security enforcement between network segments.
 
 ### Topology
 
@@ -81,7 +79,7 @@ The switch was configured with three primary VLANs:
 
 **VLAN 10 — Employees**
 
-This VLAN contains internal employee workstations. It represents the trusted user network and is permitted to access authorized server resources.
+This VLAN contains internal employee computers. It represents the trusted user network and is permitted to access authorized server resources.
 
 **VLAN 20 — Servers**
 
@@ -109,7 +107,7 @@ Each VLAN was assigned its own `/24` IPv4 subnet to maintain clear separation be
 |   20 | 192.168.20.0/24 | 192.168.20.1    | Server resources |
 |   30 | 192.168.30.0/24 | 192.168.30.1    | Guest devices    |
 
-The router was configured to provide DHCP services for the client VLANs. DHCP allows devices to automatically receive an IP address and appropriate default gateway without requiring each workstation to be manually configured.
+The router was configured to provide DHCP services for the client VLANs. DHCP allows devices to automatically receive an IP address and appropriate default gateway without requiring each computer to be manually configured.
 
 The DHCP configuration was organized into separate pools corresponding to the Employee and Guest networks. The Server VLAN uses the dedicated server address `192.168.20.21`.
 
@@ -221,7 +219,7 @@ The results demonstrate that the ACL successfully enforces the intended network 
 
 ### Employee → Guest: Blocked
 
-An ICMP test was performed from an Employee workstation to the Guest network. The packet reached the router and was denied by the `VLAN-SECURITY` ACL.
+An ICMP test was performed from an Employee computer to the Guest network. The packet reached the router and was denied by the `VLAN-SECURITY` ACL.
 
 The PDU information confirmed that the packet matched the following rule:
 
@@ -233,7 +231,7 @@ The packet was therefore dropped before it could reach the Guest device.
 
 ![ACL Drop Evidence](screenshots/07-acl-drop-evidence.png)
 
-The Simulation Mode event list and topology provide additional visual evidence of the packet being stopped at the router.
+The Simulation Mode event list and topology provide additional evidence of the packet being stopped at the router.
 
 ![Employee to Guest Event List](screenshots/07-employee-guest-eventlist.png)
 
@@ -241,7 +239,7 @@ The Simulation Mode event list and topology provide additional visual evidence o
 
 ### Employee → Server: Allowed
 
-A connectivity test was performed from an Employee workstation to the Server VLAN. The ICMP request successfully reached the server and received replies.
+A connectivity test was performed from an Employee computer to the Server VLAN. The ICMP request successfully reached the server and received replies.
 
 This confirms that the ACL allows legitimate internal access to authorized server resources.
 
@@ -281,21 +279,13 @@ The `permit ip any any` statement recorded **24 matches**, demonstrating that ot
 
 These counters provide additional verification that the ACL was actively enforcing the intended network restrictions during testing.
 
-## Key Takeaways
+## Conclusion & Key Takeaways
 
-This project demonstrated how multiple network security controls can be combined to create a segmented enterprise network.
+This project demonstrated how VLAN segmentation, DHCP, inter-VLAN routing, and ACLs can be combined to create a more secure and controlled enterprise network.
 
-VLANs established logical separation between Employees, Servers, and Guests. Router-on-a-stick inter-VLAN routing provided the necessary connectivity between these networks while creating a centralized point for traffic inspection and policy enforcement.
+VLANs separated Employees, Servers, and Guests into distinct network segments, while the `VLAN-SECURITY` ACL enforced restrictions between those segments. Testing confirmed that unauthorized traffic was blocked while authorized Employee-to-Server communication remained functional.
 
-The `VLAN-SECURITY` extended ACL then enforced the required restrictions by blocking unauthorized communication between the Employee and Guest networks and preventing Guest devices from accessing the Server network.
-
-Testing and ACL match counters verified that the implemented controls operated as intended rather than relying solely on successful device configuration.
-
-## Conclusion
-
-The completed network demonstrates a practical approach to enterprise network segmentation and access control. Instead of relying solely on physical separation, the design combines VLANs, routing, DHCP, and ACL-based traffic filtering to establish and enforce boundaries between different security zones.
-
-The project also demonstrates the importance of validating security configurations through testing. Connectivity tests, Packet Tracer Simulation Mode, PDU analysis, and ACL match counters were used together to verify that unauthorized traffic was blocked while authorized communication remained available.
+Connectivity tests, Packet Tracer Simulation Mode, PDU analysis, and ACL match counters were used to verify that the implemented security policies operated as intended.
 
 ## Project Files
 
