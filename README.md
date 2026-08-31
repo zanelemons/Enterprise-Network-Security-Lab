@@ -153,4 +153,48 @@ The router's interface configuration was verified using `show ip interface brief
 
 Inter-VLAN routing provides the connectivity required for legitimate communication while also providing the point where security policies can be enforced. The ACL described in the following section uses this routed traffic to restrict communication between specific VLANs.
 
+## ACL Security
+
+To enforce communication restrictions between the VLANs, an extended Access Control List named `VLAN-SECURITY` was configured on the router.
+
+The ACL was designed around the principle of **least privilege**. Instead of allowing unrestricted communication between all network segments, traffic between trusted, protected, and untrusted networks was explicitly controlled.
+
+### Security Policy
+
+The implemented ACL contains the following rules:
+
+| Source Network | Destination Network | Action | Purpose                                                           |
+| -------------- | ------------------- | ------ | ----------------------------------------------------------------- |
+| Employees      | Guests              | Deny   | Prevent internal employee traffic from reaching the Guest network |
+| Guests         | Employees           | Deny   | Prevent Guest devices from accessing internal employee systems    |
+| Guests         | Servers             | Deny   | Prevent Guest devices from accessing protected server resources   |
+| Any            | Any                 | Permit | Allow other traffic not explicitly restricted by the ACL          |
+
+The first three deny statements provide the primary network isolation controls:
+
+```text
+deny ip 192.168.10.0 0.0.0.255 192.168.30.0 0.0.0.255
+deny ip 192.168.30.0 0.0.0.255 192.168.10.0 0.0.0.255
+deny ip 192.168.30.0 0.0.0.255 192.168.20.0 0.0.0.255
+```
+
+The final `permit ip any any` statement allows traffic that is not explicitly prohibited by the security policy.
+
+### ACL Placement
+
+The ACL was applied to the router's VLAN routing configuration so that traffic crossing between the segmented networks could be evaluated against the security policy.
+
+This design allows the router to function as both the inter-VLAN routing device and the enforcement point for network access controls.
+
+### Configuration Verification
+
+The ACL configuration was verified using:
+
+```text
+show access-lists VLAN-SECURITY
+```
+
+The following screenshot shows the configured ACL and its security rules.
+
+![ACL Security Configuration](screenshots/05-acl-security.png)
 
