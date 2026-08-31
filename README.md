@@ -65,3 +65,37 @@ The completed topology is shown below.
 
 ![Enterprise Network Topology](screenshots/01-network-topology.png)
 
+## VLAN Segmentation
+
+VLAN segmentation was used to separate users and resources into distinct logical networks. This reduces the need for all devices to share the same broadcast domain and provides a foundation for applying different security policies to each group.
+
+The switch was configured with three primary VLANs:
+
+| VLAN | Name      | Assigned Devices | Network         |
+| ---- | --------- | ---------------- | --------------- |
+| 10   | EMPLOYEES | PC-EMP1, PC-EMP2 | 192.168.10.0/24 |
+| 20   | SERVERS   | Server           | 192.168.20.0/24 |
+| 30   | GUEST     | PC-GUEST         | 192.168.30.0/24 |
+
+### VLAN Purpose
+
+**VLAN 10 — Employees**
+
+This VLAN contains internal employee workstations. It represents the trusted user network and is permitted to access authorized server resources.
+
+**VLAN 20 — Servers**
+
+This VLAN isolates server resources from end-user and guest devices. Server resources can be accessed by authorized internal devices while remaining protected from the Guest network.
+
+**VLAN 30 — Guest**
+
+The Guest VLAN is treated as an untrusted network. Guest devices are isolated from both the Employee and Server VLANs through ACL policies implemented on the router.
+
+This segmentation provides the foundation for the security controls implemented later in the project.
+
+### VLAN Configuration
+
+The following screenshot shows the VLAN configuration on the network switch, including the assignment of endpoint ports to their respective VLANs.
+
+![VLAN Configuration](screenshots/02-vlan-configuration.png)
+
