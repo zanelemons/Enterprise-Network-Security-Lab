@@ -198,3 +198,57 @@ The following screenshot shows the configured ACL and its security rules.
 
 ![ACL Security Configuration](screenshots/05-acl-security.png)
 
+## Security Testing & Results
+
+After configuring the VLANs, routing, DHCP, and ACL security policies, the network was tested using ICMP traffic in Cisco Packet Tracer. The tests were designed to verify both **allowed communication** and **blocked communication**.
+
+### Test Results
+
+| Test              | Expected Result | Actual Result |
+| ----------------- | --------------- | ------------- |
+| Employee → Guest  | Blocked         | ✅ Blocked     |
+| Guest → Employee  | Blocked         | ✅ Blocked     |
+| Guest → Server    | Blocked         | ✅ Blocked     |
+| Employee → Server | Allowed         | ✅ Successful  |
+
+The results demonstrate that the ACL successfully separates the trusted Employee network from the untrusted Guest network while still allowing authorized Employee access to server resources.
+
+### Employee → Guest: Blocked
+
+An ICMP test was performed from an Employee workstation to the Guest network. The packet reached the router and was denied by the `VLAN-SECURITY` ACL.
+
+The PDU information confirmed that the packet matched the following rule:
+
+```text id="4qk19z"
+deny ip 192.168.10.0 0.0.0.255 192.168.30.0 0.0.0.255
+```
+
+The packet was therefore dropped before it could reach the Guest device.
+
+![ACL Drop Evidence](screenshots/07a-acl-drop-evidence.png)
+
+The Simulation Mode event list and topology provide additional visual evidence of the packet being stopped at the router.
+
+![Employee to Guest Event List](screenshots/07b-employee-guest-event-list.png)
+
+![Employee to Guest Blocked Topology](screenshots/07c-employee-guest-topology.png)
+
+### Employee → Server: Allowed
+
+A connectivity test was performed from an Employee workstation to the Server VLAN. The ICMP request successfully reached the server and received replies.
+
+This confirms that the ACL does not unnecessarily prevent legitimate internal access to server resources.
+
+![Employee to Server Successful ICMP Test](screenshots/08-employee-server-success.png)
+
+### Guest → Server: Blocked
+
+A connectivity test was performed from the Guest network toward the Server network. The traffic was blocked as intended by the ACL.
+
+This demonstrates that Guest devices cannot directly access protected server resources.
+
+![Guest to Server Blocked](screenshots/09-guest-server-blocked.png)
+
+### Test Summary
+
+The testing confirms that the implemented security policy operates as designed. Unauthorized communication between the Guest and Employee networks is blocked, Guest access to the Server network is restricted, and authorized Employee-to-Server communication remains functional.
