@@ -99,3 +99,36 @@ The following screenshot shows the VLAN configuration on the network switch, inc
 
 ![VLAN Configuration](screenshots/02-vlan-configuration.png)
 
+## IP Addressing & DHCP
+
+Each VLAN was assigned its own `/24` IPv4 subnet to maintain clear separation between network segments and simplify address management.
+
+| VLAN | Network         | Default Gateway | Purpose          |
+| ---- | --------------- | --------------- | ---------------- |
+| 10   | 192.168.10.0/24 | 192.168.10.1    | Employee devices |
+| 20   | 192.168.20.0/24 | 192.168.20.1    | Server resources |
+| 30   | 192.168.30.0/24 | 192.168.30.1    | Guest devices    |
+
+The router was configured to provide DHCP services for the client VLANs. DHCP allows devices to automatically receive an IP address and the appropriate default gateway without requiring each workstation to be manually configured.
+
+The DHCP configuration was organized into separate pools corresponding to the Employee and Guest networks. The Server VLAN uses the dedicated server address `192.168.20.21`.
+
+### Addressing Design
+
+The addressing scheme provides a predictable relationship between each VLAN and its subnet. The third octet identifies the VLAN, making the network easier to understand and troubleshoot.
+
+For example:
+
+* `192.168.10.x` → Employee network
+* `192.168.20.x` → Server network
+* `192.168.30.x` → Guest network
+
+This structure also makes the ACL security policies easier to define because each security zone is represented by a distinct subnet.
+
+### DHCP Configuration
+
+The following screenshot shows the DHCP configuration used to provide automatic addressing for network clients.
+
+![DHCP Configuration](screenshots/04-dhcp-configuration.png)
+
+
