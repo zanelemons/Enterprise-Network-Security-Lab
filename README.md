@@ -290,3 +290,12 @@ Testing confirmed that the security controls operated as intended. Unauthorized 
 The completed network demonstrates a practical approach to enterprise network segmentation and access control. Rather than relying solely on physical separation, the design uses VLANs, routing, and ACL-based traffic filtering to establish boundaries between different security zones.
 
 The project also demonstrates the importance of validating security configurations through testing rather than assuming that a configuration is working simply because it was accepted by the device. Connectivity tests, Simulation Mode packet analysis, and ACL match counters were used together to verify the implemented security policy.
+
+## Project Files
+
+The completed Cisco Packet Tracer simulation is included in the `packet-tracer/` directory.
+
+The project file contains the implemented topology, VLAN configuration, DHCP services, inter-VLAN routing, and ACL security policies documented throughout this repository.
+
+The `screenshots/` directory contains the configuration and testing evidence referenced in this README.
+
