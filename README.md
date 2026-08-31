@@ -252,3 +252,26 @@ This demonstrates that Guest devices cannot directly access protected server res
 ### Test Summary
 
 The testing confirms that the implemented security policy operates as designed. Unauthorized communication between the Guest and Employee networks is blocked, Guest access to the Server network is restricted, and authorized Employee-to-Server communication remains functional.
+
+## ACL Verification
+
+The ACL was verified after completing the connectivity and security tests by examining its match counters with the following command:
+
+```text
+show access-lists VLAN-SECURITY
+```
+
+The final ACL counters provide evidence that the security rules were actively matched during testing.
+
+The Employee-to-Guest deny rule recorded **9 matches**, confirming that traffic from the Employee network toward the Guest network was evaluated and denied.
+
+The Guest-to-Employee deny rule recorded **4 matches**, confirming that traffic traveling from the Guest network toward the Employee network was also blocked.
+
+The Guest-to-Server deny rule recorded **4 matches**, confirming that Guest traffic attempting to reach the protected Server network was denied.
+
+The `permit ip any any` statement recorded **24 matches**, demonstrating that other traffic not explicitly prohibited by the security policy was permitted.
+
+![Final ACL Match Counters](screenshots/10-final-acl-counters.png)
+
+These counters provide additional verification that the ACL security policy was actively enforcing the intended network restrictions during testing.
+
