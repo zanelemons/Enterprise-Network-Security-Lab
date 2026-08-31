@@ -225,13 +225,13 @@ deny ip 192.168.10.0 0.0.0.255 192.168.30.0 0.0.0.255
 
 The packet was therefore dropped before it could reach the Guest device.
 
-![ACL Drop Evidence](screenshots/07a-acl-drop-evidence.png)
+![ACL Drop Evidence](screenshots/07-acl-drop-evidence.png)
 
 The Simulation Mode event list and topology provide additional visual evidence of the packet being stopped at the router.
 
-![Employee to Guest Event List](screenshots/07b-employee-guest-event-list.png)
+![Employee to Guest Event List](screenshots/07-employee-guest-eventlist.png)
 
-![Employee to Guest Blocked Topology](screenshots/07c-employee-guest-topology.png)
+![Employee to Guest Blocked Topology](screenshots/07-employee-guest-topology.png)
 
 ### Employee → Server: Allowed
 
@@ -239,7 +239,7 @@ A connectivity test was performed from an Employee workstation to the Server VLA
 
 This confirms that the ACL does not unnecessarily prevent legitimate internal access to server resources.
 
-![Employee to Server Successful ICMP Test](screenshots/08-employee-server-success.png)
+![Employee to Server Successful ICMP Test](screenshots/08-employee-to-server-success.png)
 
 ### Guest → Server: Blocked
 
@@ -247,7 +247,7 @@ A connectivity test was performed from the Guest network toward the Server netwo
 
 This demonstrates that Guest devices cannot directly access protected server resources.
 
-![Guest to Server Blocked](screenshots/09-guest-server-blocked.png)
+![Guest to Server Blocked](screenshots/09-guest-to-server-blocked.png)
 
 ### Test Summary
 
