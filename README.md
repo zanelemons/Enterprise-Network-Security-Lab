@@ -275,3 +275,18 @@ The `permit ip any any` statement recorded **24 matches**, demonstrating that ot
 
 These counters provide additional verification that the ACL security policy was actively enforcing the intended network restrictions during testing.
 
+## Key Takeaways
+
+This project demonstrated how multiple network security controls can be combined to create a segmented enterprise network.
+
+The use of VLANs established logical separation between Employees, Servers, and Guests. Inter-VLAN routing provided the connectivity required between these networks while also creating a centralized point where traffic could be evaluated against security policies.
+
+The `VLAN-SECURITY` extended ACL then enforced the required restrictions by blocking unauthorized communication between the Employee and Guest networks and preventing Guest devices from accessing the Server network.
+
+Testing confirmed that the security controls operated as intended. Unauthorized traffic was blocked, while authorized Employee-to-Server communication remained functional. ACL match counters provided additional evidence that the configured rules were actively processing network traffic.
+
+### Conclusion
+
+The completed network demonstrates a practical approach to enterprise network segmentation and access control. Rather than relying solely on physical separation, the design uses VLANs, routing, and ACL-based traffic filtering to establish boundaries between different security zones.
+
+The project also demonstrates the importance of validating security configurations through testing rather than assuming that a configuration is working simply because it was accepted by the device. Connectivity tests, Simulation Mode packet analysis, and ACL match counters were used together to verify the implemented security policy.
