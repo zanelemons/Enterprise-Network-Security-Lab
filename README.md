@@ -239,7 +239,7 @@ A connectivity test was performed from an Employee workstation to the Server VLA
 
 This confirms that the ACL does not unnecessarily prevent legitimate internal access to server resources.
 
-![Employee to Server Successful ICMP Test](screenshots/08-employee-to-server-success.png)
+![Employee to Server Successful ICMP Test](screenshots/8-employee-to-server-success.png)
 
 ### Guest → Server: Blocked
 
@@ -247,7 +247,7 @@ A connectivity test was performed from the Guest network toward the Server netwo
 
 This demonstrates that Guest devices cannot directly access protected server resources.
 
-![Guest to Server Blocked](screenshots/09-guest-to-server-blocked.png)
+![Guest to Server Blocked](screenshots/9-guest-to-server-blocked.png)
 
 ### Test Summary
 
